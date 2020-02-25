@@ -16,14 +16,14 @@ class Airport
   def land(plane)
     fail "The airport is full" if @capacity == @no_of_planes
 
-    fail "Bad weather, no landing" if @weather == true
+    fail "Bad weather, no landing" if @weather.stormy? == true
 
     @no_of_planes += 1
   end
 
 # lets planes take off
   def take_off(plane)
-    fail "Bad weather, no taking off" if @weather == true
+    fail "Bad weather, no taking off" if @weather.stormy? == true
 
     @no_of_planes -= 1
   end

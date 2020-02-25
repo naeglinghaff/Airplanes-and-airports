@@ -305,6 +305,6 @@ puts airport.weather.stormy?
 
 ```
 
-At the moment the test only returns false.
+At the moment the test only returns false. All unit tests passed. So need to add further tests or updated the tests so they are correct.
 
-All unit tests pass. So need to add further tests.
+Problem is: weather is initializing as nil.

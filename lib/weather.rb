@@ -9,7 +9,7 @@ class Weather
   end
 
   def stormy?
-    @weather = random_weather == :it_stormy
+    random_weather == :it_stormy
   end
 
   private
