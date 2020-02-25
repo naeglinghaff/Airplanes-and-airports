@@ -6,10 +6,10 @@ class Airport
   attr_reader :capacity
   attr_reader :weather
 
-  def initialize(capacity = DEFAULT_VALUE, weather: Weather.new)
+  def initialize(capacity = DEFAULT_VALUE)
     @capacity = capacity
     @no_of_planes = 0
-    @weather = weather
+    @weather = Weather.new
   end
 
 # lands planes
@@ -32,9 +32,4 @@ class Airport
   def empty?
     true
   end
-
-# # finds out if it is stormy
-#   def stormy?
-#     @stormy = rand(3) == 1
-#   end
 end

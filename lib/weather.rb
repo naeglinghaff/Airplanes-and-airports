@@ -2,12 +2,6 @@ require './lib/airport'
 
 class Weather
 
-  attr_reader :weather
-
-  def initialize
-    @weather = weather
-  end
-
   def stormy?
     random_weather == :it_stormy
   end

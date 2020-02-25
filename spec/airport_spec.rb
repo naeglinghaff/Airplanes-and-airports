@@ -7,6 +7,7 @@ describe Airport do
   before(:each) do
     @plane = Plane.new
     @airport = Airport.new()
+    @weather = @airport.weather
   end
 
   describe '#land' do
@@ -40,6 +41,17 @@ describe Airport do
   context 'default capacity for the airport is selected when a new value is not supplied' do
     it 'sets to default capacity' do
       expect { 10.times { @airport.land(@plane) } }.to raise_error("The airport is full")
+    end
+  end
+
+  context 'weather affecting landing' do
+    it 'blocks landing' do
+      allow(@airport.weather).to receive(:stormy?).and_return(true)
+      allow(@airport).to receive(:land).and_return("Bad weather, no landing")
+    end
+    it 'blocks taking off' do
+      allow(@airport.weather).to receive(:stormy?).and_return(true)
+      allow(@airport).to receive(:take_off).and_return("Bad weather, no taking off")
     end
   end
 end
