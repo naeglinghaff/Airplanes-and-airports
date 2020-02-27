@@ -3,36 +3,67 @@ Airport Challenge (work in progress)
 
 A ruby program created to simulate the flow of planes to and from an airport with planes taking off or landing in good weather.
 
-## To run tests
+## Instructions
+
+
+
+
+## How to run
+
+### To run tests
 
 Clone or download the repository and then run the following for unit or feature tests.
 
-## To run unit tests with RSpec
+### To run unit tests with RSpec
 
 Navigate to the parent directory and run:
+
+```rspec --init
+```
 
 ```
 rspec
 ```
 
-## To run feature test
+### To run feature test
 
 Navigate to the same file location and run
 
 ```
 ruby feature_test.rb
 ```
+## The process
 
 ## User stories addressed:
-
-#### User story
 
 ```
 As an air traffic controller
 So I can get passengers to a destination
 I want to instruct a plane to land at an airport
+
+As an air traffic controller
+So I can get passengers on the way to their destination
+I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
+
+As an air traffic controller
+To ensure safety
+I want to prevent landing when the airport is full
+
+As the system designer
+So that the software can be used for many different airports
+I would like a default airport capacity that can be overridden as appropriate
+
+As an air traffic controller
+To ensure safety
+I want to prevent takeoff when weather is stormy
+
+As an air traffic controller
+To ensure safety
+I want to prevent landing when weather is stormy
+
 ```
-#### Feature test
+
+#### Feature tests
 
 ```
 airport = Airport.new
@@ -41,15 +72,6 @@ plane.land
 ```
 
 To test this behaviour in my unit test I checked to see if the plane.land command would raise an error.
-
-#### User Story
-```
-As an air traffic controller
-So I can get passengers on the way to their destination
-I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
-```
-
-#### Feature test
 
 ```
 airport = Airport.new
@@ -66,25 +88,7 @@ plane = Plane.new
 plane.take_off
 airport.empty?
 ```
-This should return the value true as the plane is no longer there. This second feature test is more robust than the first because it speaks directly to the user specifications, giving the controller the ability to look and check if the plane is there. The first test does test behaviour but does not directly address the check functionality that we want out airport to have.
-
-#### Results of the feature test:
-
-```
-feature_test.rb:6:in `<main>': undefined method `take_off' for #<Plane:0x00007f82d80fef30> (NoMethodError)
-```
-
-The next unit tests will now test that the method doesn't raise this error and that the method empty? lets the controller see if the plane is in the airport.
-
-#### User Story
-
-```
-As an air traffic controller
-To ensure safety
-I want to prevent landing when the airport is full
-```
-
-#### Feature test
+This should return the value true as the plane is no longer there. I prefer the second feature test - it speaks directly to the user specifications, giving the controller the ability to look and check if the plane is there. The first test does test behaviour but does not directly address the check functionality that we want our airport to have.
 
 ```
 airport = Airport.new
@@ -93,21 +97,12 @@ plane2 = Plane.new
 plane2.land
 ```
 
-This should throw an error and stops the second plane from landing. Getting the plane object to throw the error was more difficult than anticipated as the require pathways were not recognising an initialized airport to perform the empty? function - which was the logical basis for the raised error.
+This should throw an error and stop the second plane from landing. Getting the plane object to throw the error was more difficult than anticipated as the require pathways were not recognising an initialized airport - which was the logical basis for the raised error.
 
 Initializing the airport in the plane class itself will cause more issues down the line, but it was the most simple code required to pass the test and throw the needed error.
 
-#### User story
+>Proper domain modelling at the beginning would have ensured that the class relationships would not need to be changed later. Not to self - create domain models early
 
-```
-As the system designer
-So that the software can be used for many different airports
-I would like a default airport capacity that can be overridden as appropriate
-```
-
-#### Feature tests
-
-The default capacity for the airport will be 5 planes.
 
 ```
 airport = Airport.new(20)
@@ -163,15 +158,7 @@ Traceback (most recent call last):
 ```
 I then refactored my tests to avoid repeating the "airport is full error". Other unit tests were updated to respond to the updated methods land and take_off being used by the airport class and taking plane as a parameter.
 
-#### User Story
-
-```
-As an air traffic controller
-To ensure safety
-I want to prevent takeoff when weather is stormy
-```
-
-#### Feature test
+#### Moving on...
 
 ```
 airport = Airport.new()
@@ -205,16 +192,6 @@ Traceback (most recent call last):
 Makerss-Air:airport_challenge student$
 
 ```
-
-#### User Story
-
-```
-As an air traffic controller
-To ensure safety
-I want to prevent landing when weather is stormy
-```
-
-#### Feature test
 
 ```
 airport = Airport.new()
@@ -283,12 +260,7 @@ Makerss-Air:airport_challenge student$
 
 Unit tests at first were not able to limit the random weather conditions to properly set the test conditions.
 
-Fixed this issue with the use of a double stub and controlling the messages it could receive.
-
-### Future additions
-
-To make the code more robust weather conditions could be set up as an external class to apply the DRY principle. The plane class would also need to be tested to make sure that a plane knowns when it is flying and when it is in the airport to meet the second part of the edge case conditions. A storing array within the plane class could also ensure that individual planes are being stored rather than just counted, which is what the code is currently doing.
-
+Fixed this issue with the use of a double, controlling the messages it could receive.
 
 ### Back to the Future
 
@@ -307,4 +279,18 @@ puts airport.weather.stormy?
 
 At the moment the test only returns false. All unit tests passed. So need to add further tests or updated the tests so they are correct.
 
-Problem is: weather is initializing as nil.
+New weather class was updated, tested and refactored. Feature test was also updated
+
+```
+airport = Airport.new
+plane = Plane.new
+airport.take_off(plane)
+airport.land(plane)
+
+```
+
+No errors being thrown here
+
+### Future additions
+
+To make the code more robust weather conditions could be set up as an external class to apply the DRY principle. The plane class would also need to be tested to make sure that a plane knowns when it is flying and when it is in the airport to meet the second part of the edge case conditions. A storing array within the plane class could also ensure that individual planes are being stored rather than just counted, which is what the code is currently doing.
