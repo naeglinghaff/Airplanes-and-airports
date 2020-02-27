@@ -6,7 +6,7 @@ describe Airport do
  let (:airport) { Airport.new() }
  let (:plane) { Plane.new }
  let (:weather) {airport.weather}
- 
+
   describe '#land' do
     it { is_expected.to respond_to(:land).with(1).argument }
   end
@@ -44,11 +44,11 @@ describe Airport do
   context 'weather affecting landing' do
     it 'blocks landing' do
       allow(airport.weather).to receive(:stormy?).and_return(true)
-      allow(airport).to receive(:land).and_return("Bad weather, no landing")
+      expect { airport.land(plane) }.to raise_error("Bad weather, no landing")
     end
     it 'blocks taking off' do
       allow(airport.weather).to receive(:stormy?).and_return(true)
-      allow(airport).to receive(:take_off).and_return("Bad weather, no taking off")
+      expect { airport.take_off(plane) }.to raise_error("Bad weather, no taking off")
     end
   end
 end

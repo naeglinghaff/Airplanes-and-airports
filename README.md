@@ -1,11 +1,11 @@
 Airport Challenge (work in progress)
 =================
 
-A ruby program created to simulate the flow of planes to and from an airport with planes taking off or landing in good weather.
+A ruby program created to simulate the flow of planes to and from an airport. Planes can only take off or land in good weather.
 
 ## Instructions
 
-
+The challenge was to create a simulation of an airport, combining different classes to take off and land planes
 
 
 ## How to run
@@ -16,9 +16,10 @@ Clone or download the repository and then run the following for unit or feature 
 
 ### To run unit tests with RSpec
 
-Navigate to the parent directory and run:
+Navigate to the parent directory 'airport-challenge' and run:
 
-```rspec --init
+```
+rspec --init
 ```
 
 ```
@@ -103,7 +104,6 @@ Initializing the airport in the plane class itself will cause more issues down t
 
 >Proper domain modelling at the beginning would have ensured that the class relationships would not need to be changed later. Not to self - create domain models early
 
-
 ```
 airport = Airport.new(20)
 puts airport: :capacity
@@ -175,7 +175,7 @@ feature_test.rb:6:in `<main>': undefined method `is_it_stormy?' for main:Object 
 Makerss-Air:airport_challenge student$
 ```
 
-Yes, great. Now more tests. Until we get this:
+Yes, great. Now more unit tests. Until we get this:
 
 ```
 airport = Airport.new()
@@ -191,13 +191,6 @@ Traceback (most recent call last):
 /Users/student/Documents/projects/airplane_challenge/airport_challenge/lib/airport.rb:20:in `take_off': Bad weather, no taking off (RuntimeError)
 Makerss-Air:airport_challenge student$
 
-```
-
-```
-airport = Airport.new()
-plane = Plane.new
-airport.is_it_stormy?
-airport.land(plane)
 ```
 
 To maintain the DRY principle I created a new method that would be called during landing to stop planes when the weather is bad...but changed it later during refactoring. Having the 2 exceptions in the one method keeps it contained according to the SRP. Land should let planes land, take-off lets them take-off so the errors should be kept here and not put in a new method.
@@ -260,7 +253,7 @@ Makerss-Air:airport_challenge student$
 
 Unit tests at first were not able to limit the random weather conditions to properly set the test conditions.
 
-Fixed this issue with the use of a double, controlling the messages it could receive.
+Fixed this issue with the use of a stub.
 
 ### Back to the Future
 
